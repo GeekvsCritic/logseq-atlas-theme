@@ -22,7 +22,7 @@
 .white-theme,
 html[data-theme=light], .dark-theme, html[data-theme=dark] {
   /* == Backgrounds == */
-  --ct-primary-color: #1820267b;
+  --ct-primary-color: #1c2125c0;
   --ct-primary-hover-color: #10161A;
   --ct-secondary-color: #5c778a;
   --ct-tertiary-color: #F5F8FA;
@@ -69,6 +69,11 @@ html[data-theme=light], .dark-theme, html[data-theme=dark] {
   --color-level-6: #3a7e8e;
   /* === SELECTIONS === */
   --ls-selection-background-color: rgba(255,255,60,.4);
+  /* === Bullet === */
+  --ls-block-bullet-color: var(--ls-quaternary-background-color);
+  --ls-block-bullet-active-color: var(--atlas-sidebar-text-color);
+  --ls-block-bullet-threading-width: 3px;
+  --ls-bullet-closed-color: var(--ls-secondary-text-color);
 }
 
 #sidebar-nav-wrapper.cp__sidebar-left-layout:before {
@@ -498,3 +503,126 @@ div.ls-block[level="1"] {
   margin-top: 0.25em;
 }
 
+/* { == 3. Bullet Threading ==> */
+/* Copied  from https: //github.com/ttytm/logseq-allday-theme/blob/44542cdbe899af9fcb88147ce26787d4eb0df972/custom.css#L540C1-L641C14 */
+:not(:dsl-query) .block-control {
+  min-width: 0;
+  width: 1.55em;
+}
+
+.block-children {
+  border-color: var(--ls-quaternary-background-color);
+  border-left-width: var(--ls-block-bullet-threading-width);
+  border-radius: 0;
+}
+
+.block-children-left-border:hover {
+  background-color: var(--ls-block-bullet-border-color);
+}
+
+.block-content-wrapper {
+  position: relative;
+}
+
+.bullet-container {
+  position: relative;
+  width: 14px !important;
+  height: 14px !important;
+  transform: translate(1px, -1px);
+  /* align-items: end; */
+}
+
+/* Block bullet path in nested block only */
+.ls-block .bullet {
+  background-color: var(--ls-block-bullet-active-color);
+  box-shadow: 0 0 0 1px var(--ls-block-bullet-active-color);
+}
+
+.ls-block div.items-center {
+  position: relative;
+}
+
+.ls-block>.items-baseline {
+  align-items: center;
+}
+
+.ls-block:not(:focus-within) .bullet {
+  background-color: var(--ls-block-bullet-color);
+  box-shadow: none;
+  transform: scale(1);
+}
+
+.ls-block:not(:focus-within)>.items-baseline {
+  align-items: center;
+}
+
+.ls-block .ls-block>div>div.items-center::before {
+  position: absolute;
+  top: calc(-100% + var(--ls-block-bullet-threading-width) * 4 - 0.1em);
+  right: 10px;
+  bottom: 50%;
+  left: calc(-0.75 * var(--ls-block-bullet-threading-width));
+  border-bottom: var(--ls-block-bullet-threading-width) solid transparent;
+  border-left: var(--ls-block-bullet-threading-width) solid transparent;
+  border-bottom-left-radius: 6px;
+  content: "";
+  pointer-events: none;
+}
+
+.ls-block .ls-block:focus-within>div>div.items-center::before {
+  border-color: var(--ls-block-bullet-active-color);
+}
+
+.ls-block .block-children>.ls-block::before {
+  position: absolute;
+  top: -1em;
+  bottom: 0;
+  left: calc(-0.75 * var(--ls-block-bullet-threading-width));
+  border-left: var(--ls-block-bullet-threading-width) solid transparent;
+  content: "";
+  pointer-events: none;
+}
+
+.ls-block .block-children:focus-within>.ls-block:not(:focus-within)::before {
+  border-color: var(--ls-block-bullet-active-color);
+}
+
+.ls-block .block-children:focus-within>.ls-block:focus-within~.ls-block::before {
+  border-color: transparent;
+}
+
+.ls-block[haschild]>div>.block-content-wrapper::before {
+  position: absolute;
+  top: 0.9em;
+  bottom: 0;
+  left: -1em;
+  border-left: var(--ls-block-bullet-threading-width) solid transparent;
+  content: "";
+  pointer-events: none;
+}
+
+.ls-block[haschild]:focus-within>div>.block-content-wrapper .block-content::before {
+  border-color: var(--ls-block-bullet-active-color);
+}
+
+/* disable first fracking level for embedded content */
+.embed>div>div>div>div>div>div::before,
+.embed-block>div>div>div>div>div>div>div::before,
+.custom-query .blocks-container>div>div>.ls-block>div>.items-center::before {
+  border-color: transparent !important;
+}
+
+/* algin embeded pages to content width */
+.block-content .flex-1 {
+  overflow: hidden;
+}
+
+/* disable for doc mode */
+.doc-mode div.items-center::before,
+.doc-mode div.items-center::after,
+.doc-mode .ls-block::before,
+.doc-mode .ls-block::after {
+  display: none;
+}
+
+/* <== }}} */
