@@ -23,7 +23,7 @@
 .white-theme,
 html[data-theme=light], .dark-theme, html[data-theme=dark] {
   /* == Backgrounds == */
-  --ct-primary-color: #1c2125c0;
+  --ct-primary-color: #262f2fc0;
   --ct-primary-hover-color: #10161A;
   --ct-secondary-color: #5c778a;
   --ct-tertiary-color: #F5F8FA;
@@ -113,6 +113,11 @@ html[data-theme=light], .dark-theme, html[data-theme=dark] {
 .left-sidebar-inner .nav-content-item .header .cp__sidebar-left-layout a {
   color: var(--atlas-header-text-color);
 }
+
+/* .white-theme,
+html[data-theme=light] {
+  --ls-secondary-background-color: var(--ls-border-color);
+} */
 
 .dark-theme,
 html[data-theme=dark] {
@@ -440,12 +445,12 @@ html[data-theme=light] .cp__all_pages .search-wrap .form-input {
 html[data-theme=light] .cp__all_pages .search-wrap .ui__button {
   background: transparent !important;
 }
-.white-theme .cp__sidebar-help-btn,
+/* .white-theme .cp__sidebar-help-btn,
 html[data-theme=light] .cp__sidebar-help-btn {
   background-color: var(--ct-tertiary-color);
   color: var(--ct-secondary-color);
   border: 1px solid var(--ct-secondary-color);
-}
+} */
 .white-theme .cp__palette-main .chosen,
 html[data-theme=light] .cp__palette-main .chosen {
   background-color: var(--ct-tertiary-color);
